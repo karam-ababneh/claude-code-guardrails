@@ -2,7 +2,7 @@
 # Table-driven tests for hooks/bash-guard.sh.
 # Lives in a file because the guard would otherwise block the test command itself.
 set -u
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit 1
 GUARD="hooks/bash-guard.sh"
 FAILED=0
 
@@ -49,9 +49,9 @@ TMP=$(mktemp -d)
 trap 'rm -r "$TMP"' EXIT
 ( cd "$TMP" && printf 'DATABASE_URL=postgres://db.example.com/app\n' > .env )
 GUARD="$PWD/$GUARD"
-pushd "$TMP" >/dev/null
+pushd "$TMP" >/dev/null || exit 1
 check "dev server, remote DB in .env"   'npm run dev'                         ask
-popd >/dev/null
+popd >/dev/null || exit 1
 check "dev server, no .env"             'npm run dev'                         pass
 
 echo
