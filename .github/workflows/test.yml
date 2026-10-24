@@ -1,0 +1,19 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ShellCheck
+        run: shellcheck hooks/*.sh tests/*.sh
+      - name: Tests (runner)
+        run: bash tests/bash-guard.test.sh
+      - name: Tests (Docker)
+        run: |
+          docker build -t claude-code-guardrails .
+          docker run --rm claude-code-guardrails
