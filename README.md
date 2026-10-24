@@ -1,5 +1,7 @@
 # claude-code-guardrails
 
+[![test](https://github.com/karam-ababneh/claude-code-guardrails/actions/workflows/test.yml/badge.svg)](https://github.com/karam-ababneh/claude-code-guardrails/actions/workflows/test.yml)
+
 A deterministic safety hook for [Claude Code](https://docs.claude.com/en/docs/claude-code/overview).
 It checks every shell command an AI coding agent wants to run, **before** it runs.
 
